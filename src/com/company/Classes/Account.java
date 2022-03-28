@@ -32,12 +32,18 @@ public class Account
         password = p;
     }
 
+    public String getUsername(){ return username;}
+
+    public String getEmail(){ return email;}
+
+    public String getPassword(){ return password;}
+
     public boolean[] getMoveOn() {
         return moveOn;
     }
 
     public boolean checkUsername(String input){
-        if(Pattern.matches("[a-zA-Z0-9]{13}.*", input))
+        if(Pattern.matches("[\\w]{13}.*", input))
             return true;
         return false;
     }
@@ -50,7 +56,7 @@ public class Account
     }
 
     public boolean checkPassword(String input){
-        if(Pattern.matches("[a-zA-Z0-9]{13}.*", input) && Pattern.matches(".*[A-Z].*", input) && Pattern.matches(".*[//W].*", input))
+        if(Pattern.matches("[\\w\\W]{13}.*", input) && Pattern.matches(".*[A-Z].*", input) && Pattern.matches(".*[\\W].*", input))
             return true;
         return false;
     }

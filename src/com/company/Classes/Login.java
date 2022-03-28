@@ -1,5 +1,5 @@
 package com.company.Classes;
-import static java.lang.System.*;
+import static java.lang.System.out;
 import java.util.Scanner;
 public class Login
 {
@@ -13,7 +13,7 @@ public class Login
         passwords = new String[0];
         username = "";
         password = "";
-        Scanner s = new Scanner(System.in);
+        s = new Scanner(System.in);
         newAccount = false;
         out.println("Login");
     }
@@ -46,7 +46,7 @@ public class Login
         boolean[] moveOn = {false,false,false};
         String[] inputs = {"",""};
         while(!moveOn[0]){
-            out.println("Username: ");
+            out.print("Username: ");
             inputs[0] = s.nextLine();
             if(usernames.length != 0)
                 for(String username: usernames)
@@ -75,7 +75,22 @@ public class Login
     }
 
     public void collectPassword(){
-
+        boolean moveOn = false;
+        while(!moveOn){
+            out.print("Password: ");
+            String input = s.nextLine();
+            boolean correct = false;
+            if(passwords.length != 0)
+                for(String password: passwords)
+                    if(input.equals(password))
+                        correct = true;
+            if(!correct)
+                out.println("Incorrect Password! Try Again!"); // use the users email to reset a password
+            else{
+                moveOn = true;
+                password = input;
+            }
+        }
     }
 }
 

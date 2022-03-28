@@ -1,16 +1,11 @@
 package com.company.Classes;
-import com.company.Classes.Account;
-import com.company.Classes.Login;
-
-import java.io.BufferedReader;
 import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import static java.lang.System.*;
-public class Run {
+import static java.lang.System.out;
+public class Run { // check out when you add a second account and the File: Account Information
     public static void main(String[] arqs){
         // Login system: Username and password
         // create a create account window
@@ -30,40 +25,23 @@ public class Run {
                 out.println("Invalid Input! Try Again!");
         }
         boolean create = inputs[0].contains("create an account");
-        if(create)
+        String newAccount = "";
+        if(create) {
             account.createAnAccount();
-        try(BufferedReader bR = new BufferedReader(new FileReader("F://Login System//Account Information.txt"))){
-            Scanner amo = new Scanner(bR.readLine());
-            int amount = amo.nextInt();
-            int index = 0;
-            String[] usernames = new String[amount]; // mayeb ask for a name to use HashMap, and later HashTable
-            String[] emails = new String[amount];
-            String[] passwords = new String[amount];
-            while(index < amount){
-                String[] information = {bR.readLine(), bR.readLine(), bR.readLine()}; // File Structure: Username, email, password
-                usernames[index] = information[0];
-                emails[index] = information[1];
-                passwords[index] = information[2];
-                index++;
-            }
-            if(!create || account.getMoveOn()[4] == true){
-                Login login = new Login();
-                login.collectUsername();
-                if(login.getNewAccount()){}
-
-                while(!moveOn[4]){
-                    out.println("Password: ");
-                    inputs[3] = s.nextLine();
-                    // create a way to read from a list of passwords collected from a file
-                    //                 else
-                    //                     out.println("Incorrect Password! Try Again!");
-                }
-                // check to see if account exists through the username
-            }
+            newAccount = account.getUsername() + "\n" + account.getEmail() + "\n" + account.getPassword() + "\n";
+            try (PrintWriter fileOut = new PrintWriter(new BufferedWriter(new FileWriter("F://Login System//New Account.txt")))) {
+                fileOut.print(newAccount);
+            } catch (IOException e) {out.println(e.getMessage());}
         }
-        catch(IOException e) {out.println(e.getMessage());}
+        Checker checker = new Checker(create, account);
+        if(checker.getNewAccount()) {
+            Account altAccount = checker.getAccount();
+            newAccount = altAccount.getUsername() + "\n" + altAccount.getEmail() + "\n" + altAccount.getPassword() + "\n";
+        }
         try(PrintWriter fileOut = new PrintWriter(new BufferedWriter(new FileWriter("F://Login System//Account Information.txt")))){
-
+            fileOut.println(checker.getAmountOfAccounts());
+            fileOut.print(checker.getOutput()); // the old file output
+            fileOut.print(newAccount);
         }
         catch(IOException e){out.println(e.getMessage());}
         out.println("You have now logged in!");
