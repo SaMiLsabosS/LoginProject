@@ -5,12 +5,13 @@ import static java.lang.System.*;
 public class Account
 {
     private final String[] emailAddressEndings = {"outlook.com","gmail.com","yahoo.com","inbox.com","icloud.com","me.com","mac.com","mail.com","aol.com","zoho.com","yandex.com","live.com","hotmail.com","protonmail.com"}; // research how to add Google Apps for Business
-    private final boolean[] start = {false,false,false,false,false};
-    private final String[] start2 = {"","","","",""};
+    private final boolean[] start = {false,false,false,false};
+    private final String[] start2 = {"","","",""};
     private Scanner s;
     private boolean[] moveOn;
     private String[] inputs;
     private String username, email, password;
+    public boolean login;
     public Account(){
         s = new Scanner(System.in);
         moveOn = start;
@@ -18,6 +19,7 @@ public class Account
         username = "";
         email = "";
         password = "";
+        login = false;
     }
 
     public void setUsername(String u){
@@ -38,8 +40,8 @@ public class Account
 
     public String getPassword(){ return password;}
 
-    public boolean[] getMoveOn() {
-        return moveOn;
+    public boolean getLogin() {
+        return login;
     }
 
     public boolean checkUsername(String input){
@@ -101,14 +103,7 @@ public class Account
                 out.println("Wrong Password! Try Again!");
         }
         out.println("You have now created an account!");
-        while(!moveOn[4]){
-            out.print("Do you want to login (yes or no)? ");
-            inputs[4] = s.nextLine();
-            if(inputs[4].contains("yes") || inputs[4].contains("no"))
-                moveOn[4] = true;
-            else
-                out.println("Invalid Answer! Try Again!");
-        }
+        login = true;
     }
 }
 

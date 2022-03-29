@@ -22,13 +22,9 @@ public class Login
         usernames = u;
     }
 
-    public void setEmails(String[] e){
-        emails = e;
-    }
+    public void setEmails(String[] e) { emails = e; }
 
-    public void setPasswords(String[] p){
-        passwords = p;
-    }
+    public void setPasswords(String[] p) { passwords = p; }
 
     public boolean getNewAccount(){
         return newAccount;
@@ -48,10 +44,17 @@ public class Login
         while(!moveOn[0]){
             out.print("Username: ");
             inputs[0] = s.nextLine();
-            if(usernames.length != 0)
-                for(String username: usernames)
-                    if(inputs[0].equals(username))
+            if(usernames.length != 0) {
+                boolean found = false;
+                int index = 0;
+                while(!found || index < usernames.length){
+                    if (inputs[0].equals(usernames[index])) {
                         moveOn[1] = true;
+                        found = true;
+                    }
+                    index++;
+                }
+            }
             if(!moveOn[1]){
                 out.println("Incorrect Username! Try Again or Create an Account!");
                 while(!moveOn[2]){
@@ -75,19 +78,38 @@ public class Login
     }
 
     public void collectPassword(){
-        boolean moveOn = false;
-        while(!moveOn){
+        boolean moveOn[] = {false,false};
+        while(!moveOn[0]){
             out.print("Password: ");
             String input = s.nextLine();
             boolean correct = false;
-            if(passwords.length != 0)
-                for(String password: passwords)
-                    if(input.equals(password))
+            if(passwords.length != 0) {
+                boolean found = false;
+                int index = 0;
+                while(!found || index < passwords.length){
+                    if (input.equals(passwords[index])) {
                         correct = true;
-            if(!correct)
-                out.println("Incorrect Password! Try Again!"); // use the users email to reset a password
+                        found = true;
+                    }
+                    index++;
+                }
+            }
+            if(!correct) {
+                out.println("Incorrect Password! Try Again!");
+//                while(!moveOn[1]) {  // requires a hashmap
+//                    out.println("Incorrect Password! Do you want to reset your password?"); // use the users email to reset a password
+//                    String line = s.nextLine();
+//                    if (line.equals("yes")) {
+//                        ResetPassword newPassword = new ResetPassword();
+//                    } else if (line.equals("no")) {
+//                        out.println("Try Entering Your Password Again");
+//                        moveOn[1] = true;
+//                    } else
+//                        out.println("Invalid Input! Try Again!");
+//                }
+            }
             else{
-                moveOn = true;
+                moveOn[0] = true;
                 password = input;
             }
         }

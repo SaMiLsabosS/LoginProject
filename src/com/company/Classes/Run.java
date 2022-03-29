@@ -5,14 +5,10 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import static java.lang.System.out;
-public class Run { // check out when you add a second account and the File: Account Information
+public class Run {
     public static void main(String[] arqs){
-        // Login system: Username and password
-        // create a create account window
-        // give the user options to make an account or login
-        // when creating an account, ask for a username, email, password, and retyping the password
         Scanner s = new Scanner(System.in);
-        out.println("Welcome to *Website Name*!");
+        out.println("Welcome to Pointer!");
         Account account = new Account();
         String[] inputs = {"","","",""};
         boolean[] moveOn = {false,false,false,false,false};

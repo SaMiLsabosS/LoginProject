@@ -39,7 +39,6 @@ public class Checker {
         BufferedReader bR2 = new BufferedReader(new FileReader("F://Login System//New Account.txt"))){
             Scanner amo = new Scanner(bR.readLine());
             amountOfAccounts = amo.nextInt()+1;
-            int amount = amountOfAccounts-1;
             int index = 0; // maybe ask for a name to use HashMap, and later HashTable
             String[] usernames = new String[amountOfAccounts];
             String[] emails = new String[amountOfAccounts];
@@ -48,16 +47,16 @@ public class Checker {
             String[] newAccountInfo = {bR2.readLine(), bR2.readLine(), bR2.readLine()};
             for(int i = 0; i < newAccountInfo.length; i++)
                 accountInfo[i][index] = newAccountInfo[i];
-            while(index < amount){
+            index++;
+            while(index < amountOfAccounts){
                 String[] information = {bR.readLine(), bR.readLine(), bR.readLine()};
-                for(int i = 1; i < information.length; i++){
+                for(int i = 0; i < information.length; i++){
                     accountInfo[i][index] = information[i];
-                    output += information[i]+"\n"; // WARNING: There's going to be an extra line in the file
+                    output += information[i]+"\n";
                 }
-                bR.readLine(); // that's the extra line
                 index++;
             }
-            if(!create || account.getMoveOn()[4] == true){
+            if(!create || account.getLogin()){
                 Login login = new Login();
                 login.setUsernames(usernames);
                 login.setEmails(emails);
